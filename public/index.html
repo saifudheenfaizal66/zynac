@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zynaq Aqua Private Limited | FinFloat — Autonomous Freshwater Intelligence</title>
+  <meta name="description" content="Zynaq Aqua Private Limited is building FinFloat—an autonomous freshwater aquaculture system designed to turn reactive fish farming into a self-regulating ecosystem.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png?v=2">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            alabaster: '#F8FAFC',
+            marine: '#0F172A',
+            oceanTeal: '#0284C7',
+            emeraldAqua: '#059669',
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'shimmer': 'shimmer 2.5s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% center' },
+              '100%': { backgroundPosition: '200% center' },
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ====================================================
+       DESIGN SYSTEM — Zynaq Aqua / FinFloat
+       Clean, Professional Architectural White / Light Theme
+    ==================================================== */
+
+    :root {
+      --clr-teal: #0284C7;
+      --clr-emerald: #059669;
+      --clr-bg: #FFFFFF;
+      --clr-surface: #F8FAFC;
+      --clr-marine: #0F172A;
+      --radius-card: 24px;
+      --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      --shadow-card-hover: 0 20px 35px -8px rgba(2, 132, 199, 0.12), 0 4px 12px rgba(15, 23, 42, 0.06);
+      --transition-base: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--clr-bg);
+      color: #475569;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ---- Subtle grid background (Light Architectural) ---- */
+    .subtle-grid {
+      background-size: 56px 56px;
+      background-image:
+        linear-gradient(to right,  rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+    }
+
+    /* ---- Glass cards (Light Mode) ---- */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: var(--shadow-card);
+    }
+
+    .glass-card-hover {
+      transition: transform 0.4s var(--transition-base),
+                  border-color 0.35s ease,
+                  box-shadow 0.4s var(--transition-base);
+    }
+
+    .glass-card-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(5, 150, 105, 0.35);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    /* ---- Gradient text ---- */
+    .gradient-text {
+      background: linear-gradient(130deg, #0284C7 0%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ---- Shimmer gradient text (hero headline) ---- */
+    .gradient-text-animated {
+      background: linear-gradient(130deg, #0284C7 0%, #0891B2 30%, #059669 60%, #10B981 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* ---- Scroll-reveal base states ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.72s var(--transition-base),
+                  transform 0.72s var(--transition-base);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 0.72s var(--transition-base),
+                  transform 0.72s var(--transition-base);
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(36px);
+      transition: opacity 0.72s var(--transition-base),
+                  transform 0.72s var(--transition-base);
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.94);
+      transition: opacity 0.68s var(--transition-base),
+                  transform 0.68s var(--transition-base);
+    }
+
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Staggered children */
+    .stagger > * { transition-delay: 0ms; }
+    .stagger > *:nth-child(1) { transition-delay: 0ms; }
+    .stagger > *:nth-child(2) { transition-delay: 80ms; }
+    .stagger > *:nth-child(3) { transition-delay: 160ms; }
+    .stagger > *:nth-child(4) { transition-delay: 240ms; }
+    .stagger > *:nth-child(5) { transition-delay: 320ms; }
+
+    /* ---- Gradient CTA button ---- */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -4px rgba(2,132,199,0.35); }
+    .btn-primary:hover::after { opacity: 1; }
+    .btn-primary:active { transform: translateY(0px); }
+
+    /* ---- Outlined button ---- */
+    .btn-outline {
+      transition: transform 0.2s ease,
+                  background 0.25s ease,
+                  border-color 0.25s ease,
+                  box-shadow 0.3s ease;
+    }
+    .btn-outline:hover {
+      transform: translateY(-1px);
+      border-color: var(--clr-teal);
+      box-shadow: 0 4px 16px -4px rgba(2,132,199,0.14);
+    }
+    .btn-outline:active { transform: translateY(0); }
+
+    /* ---- Header scroll behavior ---- */
+    header {
+      transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.98) !important;
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+      border-color: rgba(203, 213, 225, 0.8) !important;
+    }
+
+    /* ---- Logo Styling (Direct on Page Background) ---- */
+    .zynaq-logo-img {
+      display: block;
+      filter: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    a:hover .zynaq-logo-img {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    /* ---- Nav link underline micro-interaction ---- */
+    nav a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--clr-teal), var(--clr-emerald));
+      border-radius: 999px;
+      transition: width 0.3s var(--transition-base);
+    }
+
+    nav a:hover::after { width: 100%; }
+
+    /* ---- Stealth badge ping ---- */
+    @keyframes ping-custom {
+      75%, 100% { transform: scale(2.2); opacity: 0; }
+    }
+    .ping-dot { animation: ping-custom 1.6s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+    /* ---- Section eyebrow labels ---- */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1.5px;
+      border-radius: 999px;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ---- Accent pill tags (Light Theme) ---- */
+    .impact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      background: #FFFFFF;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #1E293B;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+      transition: transform 0.3s var(--transition-base),
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease;
+    }
+
+    .impact-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px -4px rgba(15, 23, 42, 0.08);
+      border-color: rgba(2, 132, 199, 0.4);
+    }
+
+    /* ---- Feature rows in solution card ---- */
+    .feature-row {
+      transition: transform 0.3s var(--transition-base),
+                  box-shadow 0.3s ease,
+                  background 0.3s ease,
+                  border-color 0.3s ease;
+    }
+
+    .feature-row:hover {
+      transform: translateX(4px);
+      background: #FFFFFF;
+      border-color: rgba(5, 150, 105, 0.35);
+      box-shadow: 0 6px 20px -6px rgba(5, 150, 105, 0.14);
+    }
+
+    /* ---- Objective card accent bar ---- */
+    .accent-bar {
+      height: 3px;
+      width: 36px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--clr-teal), var(--clr-emerald));
+      transition: width 0.4s var(--transition-base);
+    }
+
+    .glass-card-hover:hover .accent-bar {
+      width: 60px;
+    }
+
+    /* ---- Founder avatar ring ---- */
+    .founder-ring {
+      background: linear-gradient(135deg, var(--clr-teal) 0%, var(--clr-emerald) 100%);
+      padding: 2px;
+      border-radius: 18px;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .glass-card-hover:hover .founder-ring {
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.28);
+      transform: scale(1.04);
+    }
+
+    /* ---- Input focus ring polish (Light Theme) ---- */
+    input, textarea, select {
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #059669 !important;
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+      background: #FFFFFF !important;
+    }
+
+    /* ---- Early access form wrapper glow on focus ---- */
+    #early-access-form:focus-within {
+      border-color: rgba(5, 150, 105, 0.4) !important;
+      box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.1), 0 0 0 3px rgba(5, 150, 105, 0.12);
+    }
+
+    /* ---- Section separator lines ---- */
+    .section-sep {
+      border-top: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    /* ---- Footer CTA banner ---- */
+    .footer-cta {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-cta::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(5, 150, 105, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ---- Ambient glow blobs ---- */
+    .glow-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    /* ---- Toast notification ---- */
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0)   scale(1);    }
+    }
+
+    @keyframes toast-out {
+      from { opacity: 1; transform: translateY(0)   scale(1);    }
+      to   { opacity: 0; transform: translateY(8px) scale(0.97); }
+    }
+
+    .toast-enter { animation: toast-in 0.3s var(--transition-base) forwards; }
+    .toast-exit  { animation: toast-out 0.25s ease-in forwards; }
+
+    /* ---- Partner modal ---- */
+    @keyframes modal-in {
+      from { opacity: 0; transform: scale(0.95) translateY(16px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0); }
+    }
+
+    .modal-panel {
+      animation: modal-in 0.35s var(--transition-base) forwards;
+    }
+
+    /* ---- Mobile nav links ---- */
+    #mobile-menu a {
+      border-radius: 12px;
+      transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+    }
+
+    #mobile-menu a:hover { padding-left: 20px; }
+
+    /* ---- Classified badge shimmer ---- */
+    .redacted-text {
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #0284C7;
+      letter-spacing: 0.04em;
+    }
+
+    /* ---- Section numbers (Light Architectural) ---- */
+    .section-num {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      font-size: 5rem;
+      font-weight: 800;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: rgba(15, 23, 42, 0.04);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ---- Scroll progress bar ---- */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2.5px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--clr-teal), var(--clr-emerald));
+      z-index: 9999;
+      transition: width 0.1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ---- Back-to-top button (Light Architectural) ---- */
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 40;
+      color: #64748B;
+    }
+
+    #back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #back-to-top:hover {
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.2);
+      color: #059669;
+      border-color: rgba(5, 150, 105, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-600 font-sans antialiased selection:bg-emerald-500/20 selection:text-emerald-900 min-h-screen flex flex-col justify-between relative subtle-grid">
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Back-to-top button -->
+  <button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <!-- Toast Notification Stack Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- ======================================================
+       HEADER
+  ====================================================== -->
+  <header id="site-header" class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-2xl transition-all duration-300 shadow-sm shadow-slate-200/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-22 sm:h-24 flex items-center justify-between">
+      
+      <!-- Zynaq Aqua Brand Logo -->
+      <a href="#" class="flex items-center group focus:outline-none" aria-label="Zynaq Aqua - Engineering Intelligence">
+        <img src="assets/zynaq-logo-transparent.png" alt="Zynaq Aqua - Engineering Intelligence" class="zynaq-logo-img h-12 sm:h-14 md:h-16 w-auto object-contain" />
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-700">
+        <a href="#problem" class="hover:text-emerald-600 transition-colors">Problem</a>
+        <a href="#solution" class="hover:text-emerald-600 transition-colors">Solution</a>
+        <a href="#purpose" class="hover:text-emerald-600 transition-colors">Mission &amp; Vision</a>
+        <a href="#leadership" class="hover:text-emerald-600 transition-colors">Leadership</a>
+        <a href="#contact" class="hover:text-emerald-600 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Stealth Mode Status Badge + Mobile Menu Trigger -->
+      <div class="flex items-center gap-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 shadow-sm text-xs font-semibold text-emerald-700">
+          <span class="relative flex h-2 w-2">
+            <span class="ping-dot absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-70"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="hidden sm:inline">Stealth Mode · Launching Soon</span>
+          <span class="sm:hidden">Stealth</span>
+        </div>
+
+        <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:text-slate-900 hover:border-emerald-500 shadow-sm transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/98 backdrop-blur-xl px-4 pt-3 pb-5 space-y-1 shadow-xl">
+      <a href="#problem" class="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-all">Problem Statement</a>
+      <a href="#solution" class="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-all">The Solution (FinFloat)</a>
+      <a href="#purpose" class="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-all">Mission, Vision &amp; Objectives</a>
+      <a href="#leadership" class="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-all">Founding Directors</a>
+      <a href="#contact" class="block px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-all">Corporate &amp; Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================
+         HERO SECTION
+    ====================================================== -->
+    <section class="relative min-h-[88vh] flex items-center py-16 sm:py-24 overflow-hidden">
+      <!-- Interactive Hydrodynamic Sonar / Radar Wave Canvas -->
+      <canvas id="sonar-canvas" class="absolute inset-0 w-full h-full pointer-events-auto opacity-95"></canvas>
+
+      <!-- Ambient glow blobs -->
+      <div class="glow-blob w-96 h-96 bg-sky-300/20 -top-20 -left-20"></div>
+      <div class="glow-blob w-80 h-80 bg-emerald-300/20 bottom-10 right-10"></div>
+
+      <!-- Clean Light Radial Vignette Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-b from-white/75 via-transparent to-white pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-white/50 via-transparent to-white/50 pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pointer-events-none">
+        <!-- Flagship Eyebrow Pill -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/95 border border-emerald-200 shadow-sm text-xs sm:text-sm font-semibold text-emerald-700 mb-8 pointer-events-auto reveal" style="transition-delay:0ms">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Zynaq Aqua · Project FinFloat · Next-Generation Aquatic Robotics</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-slate-900 leading-[1.08] mb-6 reveal" style="transition-delay:80ms">
+          Autonomy on the Water.<br>
+          <span class="gradient-text-animated">Intelligence Beneath It.</span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="max-w-2xl mx-auto text-base sm:text-xl text-slate-600 font-normal leading-relaxed mb-10 reveal" style="transition-delay:160ms">
+          We are building <strong class="text-slate-900 font-semibold">FinFloat</strong> — an autonomous freshwater aquaculture system designed to turn reactive fish farming into a self-regulating ecosystem.
+        </p>
+
+        <!-- Dual Calls to Action Container -->
+        <div class="max-w-2xl mx-auto pointer-events-auto reveal" style="transition-delay:240ms">
+          <!-- CTA 1: Request Early Access Inline Form -->
+          <form id="early-access-form" class="flex flex-col sm:flex-row gap-2.5 p-2 rounded-2xl bg-white/95 border border-slate-200 shadow-xl shadow-slate-200/60 transition-all duration-300">
+            <input type="text" id="early-access-input" required="" placeholder="Enter your email or WhatsApp number for pilot access..." class="flex-1 bg-transparent px-4 py-3.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 focus:outline-none rounded-xl border border-transparent">
+            <button type="submit" class="btn-primary px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 shadow-lg shadow-emerald-600/20 whitespace-nowrap cursor-pointer">
+              Request Early Access
+            </button>
+          </form>
+
+          <!-- CTA 2: Partner With Us Trigger + Curiosity Hint -->
+          <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+            <button type="button" onclick="openPartnerModal()" class="btn-outline inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 hover:border-emerald-500/50 text-slate-800 font-semibold shadow-sm cursor-pointer">
+              <span>Partner With Us</span>
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </button>
+            <span class="text-slate-500 text-xs sm:text-sm">
+              For farmers, incubators, investors &amp; institutional pilots.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PROBLEM SECTION
+    ====================================================== -->
+    <section id="problem" class="py-20 sm:py-28 section-sep relative bg-slate-50/50">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass-card rounded-3xl p-8 sm:p-12 lg:p-14 relative overflow-hidden reveal bg-white border border-slate-200/90 shadow-xl shadow-slate-200/50">
+          <!-- Decorative section number -->
+          <span class="section-num">01</span>
+
+          <!-- Ambient glow -->
+          <div class="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-sky-500/5 blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-emerald-500/5 blur-3xl pointer-events-none"></div>
+
+          <div class="eyebrow text-emerald-600 mb-4">
+            01 · The Problem Statement
+          </div>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight mb-6">
+            Why Traditional Aquaculture Bleeds Yield
+          </h2>
+
+          <p class="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-3xl mb-10">
+            Freshwater aquaculture loses up to <span class="text-emerald-600 font-bold">30% of its potential yield</span> to blind feeding schedules, sudden water-quality shifts, and manual guesswork. Farmers are forced to react after crises strike—resulting in wasted feed, stock mortality, and unpredictable income.
+          </p>
+
+          <!-- 3 Concise Impact Highlight Pills -->
+          <div class="flex flex-wrap gap-3 stagger">
+            <div class="impact-pill">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+              <span>Blind Feeding &amp; Feed Waste</span>
+            </div>
+            <div class="impact-pill">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 flex-shrink-0"></span>
+              <span>Sudden Water-Quality Shifts</span>
+            </div>
+            <div class="impact-pill">
+              <span class="w-2.5 h-2.5 rounded-full bg-sky-500 flex-shrink-0"></span>
+              <span>Reactive Crisis Management</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SOLUTION SECTION
+    ====================================================== -->
+    <section id="solution" class="py-20 sm:py-28 section-sep relative bg-white">
+      <!-- Ambient blobs -->
+      <div class="glow-blob w-72 h-72 bg-sky-400/10 top-20 -right-20 opacity-70"></div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          
+          <!-- Left Column: Narrative -->
+          <div class="lg:col-span-7 reveal-left">
+            <div class="eyebrow text-emerald-600 mb-4">
+              02 · The Solution
+            </div>
+            <h2 class="font-display font-bold text-3xl sm:text-5xl text-slate-900 tracking-tight mb-6">
+              Introducing <span class="gradient-text">FinFloat</span>
+            </h2>
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed mb-6">
+              Zynaq Aqua is bridging autonomous surface robotics with predictive aquatic intelligence to eliminate farm guesswork. <strong class="text-slate-900 font-semibold">FinFloat</strong> operates as a self-regulating presence on the water—thinking, adapting, and acting autonomously to protect pond health and optimize growth, while keeping our core hardware architecture under wraps until launch.
+            </p>
+            <p class="text-sm sm:text-base text-slate-500 leading-relaxed">
+              Zero manual guesswork. Continuous pond balance. Engineered from the ground up in Kerala for real-world freshwater farms.
+            </p>
+          </div>
+
+          <!-- Right Column: Classified Architecture Card (Outcome-Only, Zero Specs) -->
+          <div class="lg:col-span-5 reveal-right">
+            <div class="glass-card rounded-3xl p-7 sm:p-8 border border-slate-200 relative overflow-hidden bg-white shadow-xl shadow-slate-200/50">
+              <!-- Inner glow -->
+              <div class="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-amber-500/5 blur-3xl pointer-events-none"></div>
+
+              <div class="flex items-center justify-between gap-2 pb-5 mb-6 border-b border-slate-200">
+                <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-600">
+                  <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                  </svg>
+                  <span>Classified Architecture</span>
+                </div>
+                <span class="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-[11px] font-semibold text-emerald-700">
+                  IP Protected
+                </span>
+              </div>
+
+              <div class="space-y-3">
+                <div class="feature-row p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 flex items-start gap-3.5 cursor-default">
+                  <div class="w-9 h-9 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center shrink-0 text-sky-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Autonomous Mobility</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">Self-navigating surface operation across commercial ponds without human intervention.</p>
+                  </div>
+                </div>
+
+                <div class="feature-row p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 flex items-start gap-3.5 cursor-default">
+                  <div class="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0 text-emerald-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Predictive Water Intelligence</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">Continuous environmental awareness that anticipates pond shifts before they threaten stock.</p>
+                  </div>
+                </div>
+
+                <div class="feature-row p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 flex items-start gap-3.5 cursor-default">
+                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center shrink-0 text-cyan-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-slate-900 text-base">Zero-Guesswork Actuation</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">Closed-loop autonomous response that turns insights into immediate on-water action.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                <span>Hardware &amp; Payload Specs</span>
+                <span class="redacted-text">[REDACTED UNTIL LAUNCH]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         PURPOSE / MISSION SECTION
+    ====================================================== -->
+    <section id="purpose" class="py-20 sm:py-28 section-sep relative bg-slate-50/50">
+      <!-- Ambient blob -->
+      <div class="glow-blob w-80 h-80 bg-emerald-400/10 -bottom-20 -left-20 opacity-80"></div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-14 reveal">
+          <div class="eyebrow text-emerald-600 mb-4">
+            03 · Purpose &amp; Direction
+          </div>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
+            Mission, Vision &amp; Core Objectives
+          </h2>
+        </div>
+
+        <!-- Vision & Mission Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-10 stagger">
+          <div class="glass-card glass-card-hover rounded-3xl p-8 reveal border border-slate-200/90 bg-white">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-sky-50 border border-sky-200 text-xs font-bold uppercase tracking-wider text-sky-700 mb-5">
+              Our Vision
+            </div>
+            <p class="font-display font-bold text-xl sm:text-2xl text-slate-900 leading-snug">
+              "To make sustainable, precision freshwater aquaculture effortless and resilient for every fish farmer."
+            </p>
+          </div>
+
+          <div class="glass-card glass-card-hover rounded-3xl p-8 reveal border border-slate-200/90 bg-white" style="transition-delay:80ms">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-xs font-bold uppercase tracking-wider text-emerald-700 mb-5">
+              Our Mission
+            </div>
+            <p class="font-display font-bold text-xl sm:text-2xl text-slate-900 leading-snug">
+              "To bridge autonomous robotics and predictive aquatic intelligence, replacing manual guesswork with self-regulating farm ecosystems."
+            </p>
+          </div>
+        </div>
+
+        <!-- Core Objectives Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Objective 01 -->
+          <div class="glass-card glass-card-hover rounded-3xl p-7 flex flex-col justify-between reveal border border-slate-200/90 bg-white shadow-sm" style="transition-delay:0ms">
+            <div>
+              <span class="font-mono text-sm font-bold text-sky-600">OBJECTIVE 01</span>
+              <h3 class="font-display font-bold text-xl text-slate-900 mt-2 mb-3">Eliminate Blind Feeding</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Optimize feed conversion and prevent pond degradation through intelligent, autonomous delivery tailored to real-time farm dynamics.
+              </p>
+            </div>
+            <div class="mt-6 accent-bar"></div>
+          </div>
+
+          <!-- Objective 02 -->
+          <div class="glass-card glass-card-hover rounded-3xl p-7 flex flex-col justify-between reveal border border-slate-200/90 bg-white shadow-sm" style="transition-delay:80ms">
+            <div>
+              <span class="font-mono text-sm font-bold text-emerald-600">OBJECTIVE 02</span>
+              <h3 class="font-display font-bold text-xl text-slate-900 mt-2 mb-3">Prevent Stock Loss Early</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Shift aquaculture from reactive crisis management to proactive, continuous pond stability—protecting farmer livelihoods before emergencies escalate.
+              </p>
+            </div>
+            <div class="mt-6 accent-bar"></div>
+          </div>
+
+          <!-- Objective 03 -->
+          <div class="glass-card glass-card-hover rounded-3xl p-7 flex flex-col justify-between reveal border border-slate-200/90 bg-white shadow-sm" style="transition-delay:160ms">
+            <div>
+              <span class="font-mono text-sm font-bold text-teal-600">OBJECTIVE 03</span>
+              <h3 class="font-display font-bold text-xl text-slate-900 mt-2 mb-3">Empower Smallholder Farmers</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Deliver rugged, energy-autonomous systems engineered specifically for real-world Indian freshwater conditions and accessible adoption.
+              </p>
+            </div>
+            <div class="mt-6 accent-bar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         LEADERSHIP SECTION
+    ====================================================== -->
+    <section id="leadership" class="py-20 sm:py-28 section-sep relative bg-white">
+      <!-- Ambient blob -->
+      <div class="glow-blob w-72 h-72 bg-sky-400/10 top-10 right-10 opacity-60"></div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-14 reveal">
+          <div class="eyebrow text-emerald-600 mb-4">
+            04 · Leadership
+          </div>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight mb-3">
+            Founding Directors
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            Led by a founding team combining engineering discipline, product execution, and deep commitment to sustainable Indian aquaculture.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <!-- Founder 1: Abdul Salam A -->
+          <div class="glass-card glass-card-hover rounded-3xl p-8 relative overflow-hidden reveal border border-slate-200/90 bg-white shadow-md shadow-slate-200/40" style="transition-delay:0ms">
+            <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-sky-500/5 blur-2xl pointer-events-none"></div>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="founder-ring shrink-0">
+                <div class="w-14 h-14 rounded-[16px] bg-slate-50 border border-slate-200 flex items-center justify-center font-display font-bold text-lg text-slate-800">
+                  AS
+                </div>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-lg text-slate-900">Abdul Salam A</h3>
+                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700">
+                  Managing Director &amp; Founder
+                </span>
+              </div>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Spearheading corporate vision, autonomous system architecture, and strategic product development at Zynaq Aqua Private Limited.
+            </p>
+          </div>
+
+          <!-- Founder 2: Adarsh S -->
+          <div class="glass-card glass-card-hover rounded-3xl p-8 relative overflow-hidden reveal border border-slate-200/90 bg-white shadow-md shadow-slate-200/40" style="transition-delay:80ms">
+            <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-emerald-500/5 blur-2xl pointer-events-none"></div>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="founder-ring shrink-0">
+                <div class="w-14 h-14 rounded-[16px] bg-slate-50 border border-slate-200 flex items-center justify-center font-display font-bold text-lg text-slate-800">
+                  AS
+                </div>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-lg text-slate-900">Adarsh S</h3>
+                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700">
+                  Director &amp; Co-Founder
+                </span>
+              </div>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Driving operational execution, field validation partnerships, and scalable deployment strategy across freshwater aquaculture clusters.
+            </p>
+          </div>
+
+          <!-- Founder 3: Umarul Farook A -->
+          <div class="glass-card glass-card-hover rounded-3xl p-8 relative overflow-hidden reveal border border-slate-200/90 bg-white shadow-md shadow-slate-200/40" style="transition-delay:160ms">
+            <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-cyan-500/5 blur-2xl pointer-events-none"></div>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="founder-ring shrink-0">
+                <div class="w-14 h-14 rounded-[16px] bg-slate-50 border border-slate-200 flex items-center justify-center font-display font-bold text-lg text-slate-800">
+                  UF
+                </div>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-lg text-slate-900">Umarul Farook A</h3>
+                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700">
+                  Director &amp; Co-Founder
+                </span>
+              </div>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Leading governance, ecosystem alliances, and institutional collaboration to bring precision automation to smallholder fish farmers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================
+       FOOTER
+  ====================================================== -->
+  <footer id="contact" class="border-t border-slate-200 bg-slate-50 text-slate-600 pt-16 pb-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top CTA Banner inside Footer -->
+      <div class="glass-card footer-cta rounded-3xl p-8 sm:p-10 mb-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 reveal bg-white border border-slate-200 shadow-xl shadow-slate-200/50">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Connect With Us</span>
+          <h3 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 mt-1">
+            Interested in Early Pilot Access or Strategic Partnerships?
+          </h3>
+          <p class="text-sm text-slate-600 mt-2 max-w-xl">
+            Reach out directly to our founding team for farm pilot onboarding, incubator programs, or institutional inquiries.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3 shrink-0">
+          <a href="#early-access-input" class="btn-primary px-5 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 shadow-md shadow-emerald-600/20">
+            Request Early Access
+          </a>
+          <button type="button" onclick="openPartnerModal()" class="btn-outline px-5 py-3 rounded-xl font-semibold text-sm text-slate-700 border border-slate-300 bg-white hover:bg-slate-50 hover:text-slate-900 cursor-pointer shadow-sm">
+            Partner With Us
+          </button>
+        </div>
+      </div>
+
+      <!-- Corporate Registry & Contact Grid (MCA21 / DPIIT Verification Ready) -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-200">
+        
+        <!-- Brand & Entity Overview -->
+        <div class="md:col-span-5 space-y-4 reveal">
+          <div class="flex items-center">
+            <a href="#" class="inline-flex items-center focus:outline-none" aria-label="Zynaq Aqua Private Limited">
+              <img src="assets/zynaq-logo-transparent.png" alt="Zynaq Aqua Private Limited" class="zynaq-logo-img h-14 sm:h-16 md:h-18 w-auto object-contain" />
+            </a>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            An Indian aquatic robotics and deep-tech startup developing <strong class="text-slate-900">FinFloat</strong> — autonomous precision systems for sustainable freshwater aquaculture.
+          </p>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-700 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Incorporated in India · Kerala</span>
+          </div>
+        </div>
+
+        <!-- Registered Office Address -->
+        <div class="md:col-span-4 space-y-3 reveal" style="transition-delay:80ms">
+          <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400">Registered Office</h4>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            <strong class="text-slate-900 block mb-1">Zynaq Aqua Private Limited</strong>
+            Amanath Manzil, Punnapra P.O.,<br>
+            Alappuzha, Kerala – 688004,<br>
+            India
+          </p>
+        </div>
+
+        <!-- Direct Official Contact -->
+        <div class="md:col-span-3 space-y-3 reveal" style="transition-delay:160ms">
+          <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400">Official Contact</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li>
+              <a href="tel:+919656961637" class="inline-flex items-center gap-2.5 text-slate-700 hover:text-emerald-600 font-medium transition-colors group" target="_blank" rel="noopener noreferrer">
+                <svg class="w-4 h-4 text-emerald-600 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+                <span>+91 96569 61637</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:zynaq.co@gmail.com" class="inline-flex items-center gap-2.5 text-slate-700 hover:text-emerald-600 font-medium transition-colors break-all group" target="_blank" rel="noopener noreferrer">
+                <svg class="w-4 h-4 text-emerald-600 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                <span>zynaq.co@gmail.com</span>
+              </a>
+            </li>
+            <li class="pt-1">
+              <button type="button" onclick="copyContactEmail()" class="text-xs text-slate-500 hover:text-emerald-600 underline underline-offset-4 cursor-pointer transition-colors">
+                Copy email address
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Copyright Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© 2026 Zynaq Aqua Private Limited. All rights reserved.</p>
+        <p>FinFloat™ is a proprietary product under development by Zynaq Aqua Private Limited.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================
+       PARTNER MODAL
+  ====================================================== -->
+  <div id="partner-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/40 backdrop-blur-md">
+    <div class="modal-panel bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl shadow-slate-900/10 text-slate-700">
+      <button type="button" onclick="closePartnerModal()" aria-label="Close modal" class="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <div class="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-2">Strategic Collaboration</div>
+      <h3 class="font-display font-bold text-2xl text-slate-900 mb-2">Partner With Zynaq Aqua</h3>
+      <p class="text-sm text-slate-600 mb-6">
+        Select your inquiry category below to connect directly with our founding directors via Email or WhatsApp.
+      </p>
+
+      <div class="space-y-4">
+        <div>
+          <label for="partner-type" class="block text-xs font-semibold text-slate-700 mb-1.5">Inquiry Category</label>
+          <select id="partner-type" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 text-sm text-slate-900 focus:bg-white">
+            <option value="Pilot Collaboration (Aquaculture Farm)">Pilot Collaboration (Aquaculture Farm)</option>
+            <option value="Investment / Grant Inquiry">Investment / Grant Inquiry</option>
+            <option value="Institutional / Incubator Partnership">Institutional / Incubator Partnership</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="partner-org" class="block text-xs font-semibold text-slate-700 mb-1.5">Your Name / Organization</label>
+          <input type="text" id="partner-org" placeholder="e.g., GreenValley Aqua Farms / Kerala Startup Mission" class="w-full rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:bg-white">
+        </div>
+
+        <div>
+          <label for="partner-note" class="block text-xs font-semibold text-slate-700 mb-1.5">Brief Message (Optional)</label>
+          <textarea id="partner-note" rows="3" placeholder="Tell us briefly how you'd like to collaborate..." class="w-full rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 resize-none focus:bg-white"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <button type="button" onclick="sendPartnerEmail()" class="btn-primary w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 cursor-pointer">
+            <span>Send via Email</span>
+          </button>
+          <button type="button" onclick="sendPartnerWhatsApp()" class="btn-outline w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-emerald-700 border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center gap-2 cursor-pointer">
+            <span>Connect on WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // 1. Scroll Progress Bar
+    // ============================================================
+    const scrollProgress = document.getElementById('scroll-progress');
+    const backToTop = document.getElementById('back-to-top');
+    const siteHeader = document.getElementById('site-header');
+
+    function onScroll() {
+      const scrolled = window.scrollY;
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress.style.width = (scrolled / docH * 100) + '%';
+
+      // Header style on scroll
+      if (scrolled > 40) {
+        siteHeader.classList.add('scrolled');
+      } else {
+        siteHeader.classList.remove('scrolled');
+      }
+
+      // Back-to-top button
+      if (scrolled > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ============================================================
+    // 2. Scroll-reveal (IntersectionObserver)
+    // ============================================================
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // Also trigger hero reveals immediately
+    document.querySelectorAll('.reveal').forEach(el => {
+      const delay = parseInt(el.style.transitionDelay) || 0;
+      setTimeout(() => el.classList.add('visible'), 100 + delay);
+    });
+
+    // ============================================================
+    // 3. Mobile Navigation Toggle
+    // ============================================================
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // ============================================================
+    // 4. Toast Notification Helper (Clean Light Theme)
+    // ============================================================
+    function showToast(title, message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const accentBorder = type === 'success' ? 'border-emerald-300' : 'border-sky-300';
+      const dotColor     = type === 'success' ? 'bg-emerald-500'     : 'bg-sky-500';
+
+      toast.className = `toast-enter pointer-events-auto bg-white/95 border ${accentBorder} rounded-2xl p-4 shadow-xl shadow-slate-900/10 backdrop-blur-xl`;
+      toast.innerHTML = `
+        <div class="flex items-start gap-3">
+          <span class="w-2.5 h-2.5 rounded-full ${dotColor} mt-1.5 shrink-0"></span>
+          <div class="flex-1">
+            <h4 class="text-sm font-bold text-slate-900">${title}</h4>
+            <p class="text-xs text-slate-600 mt-1 leading-relaxed">${message}</p>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove('toast-enter');
+        toast.classList.add('toast-exit');
+        setTimeout(() => toast.remove(), 280);
+      }, 4500);
+    }
+
+    // ============================================================
+    // 5. CTA 1: Early Access Form Handler
+    // ============================================================
+    const earlyAccessForm = document.getElementById('early-access-form');
+    const earlyAccessInput = document.getElementById('early-access-input');
+
+    earlyAccessForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const contactVal = earlyAccessInput.value.trim();
+      if (!contactVal) return;
+
+      showToast(
+        'Early Access Request Registered',
+        `Thank you! We have logged "${contactVal}" on the FinFloat pilot priority list and will reach out prior to launch.`
+      );
+      earlyAccessInput.value = '';
+    });
+
+    // ============================================================
+    // 6. CTA 2: Partner With Us Modal Controls
+    // ============================================================
+    const partnerModal = document.getElementById('partner-modal');
+
+    function openPartnerModal() {
+      partnerModal.classList.remove('hidden');
+      partnerModal.classList.add('flex');
+      // Re-trigger animation
+      const panel = partnerModal.querySelector('.modal-panel');
+      panel.classList.remove('modal-panel');
+      void panel.offsetWidth; // reflow
+      panel.classList.add('modal-panel');
+    }
+
+    function closePartnerModal() {
+      partnerModal.classList.add('hidden');
+      partnerModal.classList.remove('flex');
+    }
+
+    partnerModal.addEventListener('click', (e) => {
+      if (e.target === partnerModal) closePartnerModal();
+    });
+
+    // ESC to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePartnerModal();
+    });
+
+    function buildPartnerMessage() {
+      const category = document.getElementById('partner-type').value;
+      const org = document.getElementById('partner-org').value.trim() || 'Prospective Partner';
+      const note = document.getElementById('partner-note').value.trim();
+      return {
+        category,
+        org,
+        body: `Hello Zynaq Aqua Team,\n\nI would like to connect regarding: ${category}.\nName / Organization: ${org}${note ? `\n\nMessage:\n${note}` : ''}\n\nLooking forward to discussing FinFloat.`
+      };
+    }
+
+    function sendPartnerEmail() {
+      const { category, body } = buildPartnerMessage();
+      const mailtoUrl = `mailto:zynaq.co@gmail.com?subject=${encodeURIComponent(`[Zynaq Aqua] ${category}`)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+      closePartnerModal();
+      showToast('Opening Email Client', 'Drafted your partnership inquiry to zynaq.co@gmail.com.');
+    }
+
+    function sendPartnerWhatsApp() {
+      const { body } = buildPartnerMessage();
+      const waUrl = `https://wa.me/919656961637?text=${encodeURIComponent(body)}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+      closePartnerModal();
+      showToast('Opening WhatsApp', 'Connecting you directly with Zynaq Aqua (+91 96569 61637).');
+    }
+
+    // ============================================================
+    // 7. Copy Email Utility
+    // ============================================================
+    function copyContactEmail() {
+      navigator.clipboard.writeText('zynaq.co@gmail.com').catch(() => {
+        const tempInput = document.createElement('input');
+        tempInput.value = 'zynaq.co@gmail.com';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      });
+      showToast('Copied to Clipboard', 'zynaq.co@gmail.com is ready to paste.');
+    }
+
+    // ============================================================
+    // 8. Interactive Light-Mode Hydrodynamic Wave / Sonar Beacon Canvas
+    // ============================================================
+    window.addEventListener('load', () => {
+      const canvas = document.getElementById('sonar-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let width, height;
+      let targetX, targetY, currentX, currentY;
+      let ripples = [];
+      let tick = 0;
+
+      function resizeCanvas() {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+        if (targetX === undefined) {
+          targetX = currentX = width * 0.5;
+          targetY = currentY = height * 0.48;
+        }
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function updatePointer(clientX, clientY) {
+        const rect = canvas.getBoundingClientRect();
+        targetX = clientX - rect.left;
+        targetY = clientY - rect.top;
+      }
+
+      window.addEventListener('mousemove', (e) => updatePointer(e.clientX, e.clientY));
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+
+      function spawnRipple(x, y, colorTeal = true) {
+        ripples.push({
+          x,
+          y,
+          radius: 10,
+          maxRadius: Math.max(width, height) * 0.44,
+          alpha: 0.36,
+          teal: colorTeal
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        tick++;
+
+        // Smooth autonomous drift + subtle pull toward pointer
+        const idleX = width  * 0.5 + Math.cos(tick * 0.012) * 90;
+        const idleY = height * 0.46 + Math.sin(tick * 0.016) * 45;
+        const desiredX = targetX !== undefined ? (targetX * 0.35 + idleX * 0.65) : idleX;
+        const desiredY = targetY !== undefined ? (targetY * 0.35 + idleY * 0.65) : idleY;
+
+        currentX += (desiredX - currentX) * 0.03;
+        currentY += (desiredY - currentY) * 0.03;
+
+        // Emit periodic hydrodynamic pulses (alternating teal/emerald)
+        if (tick % 75 === 0) spawnRipple(currentX, currentY, true);
+        if (tick % 110 === 0) spawnRipple(currentX, currentY, false);
+
+        // Crisp architectural reference rings (Light Mode)
+        for (let i = 1; i <= 4; i++) {
+          ctx.beginPath();
+          ctx.arc(currentX, currentY, i * 86, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(2, 132, 199, ${0.14 - i * 0.025})`;
+          ctx.lineWidth = 1;
+          ctx.setLineDash([6, 14]);
+          ctx.lineDashOffset = tick * 0.3;
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        // Expanding ripples (Light Mode)
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const r = ripples[i];
+          r.radius += 1.45;
+          r.alpha  *= 0.991;
+
+          const color = r.teal
+            ? `rgba(2, 132, 199, ${r.alpha * 0.65})`
+            : `rgba(5, 150, 105, ${r.alpha * 0.65})`;
+
+          ctx.beginPath();
+          ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          if (r.radius > r.maxRadius || r.alpha < 0.01) {
+            ripples.splice(i, 1);
+          }
+        }
+
+        // Soft biotech aura around beacon core (Light Mode)
+        const glow = ctx.createRadialGradient(currentX, currentY, 2, currentX, currentY, 72);
+        glow.addColorStop(0,    'rgba(5, 150, 105, 0.22)');
+        glow.addColorStop(0.5,  'rgba(2, 132, 199, 0.08)');
+        glow.addColorStop(1,    'rgba(255, 255, 255, 0)');
+
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(currentX, currentY, 72, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Cross-hair detail lines (subtle)
+        const crossLen = 18;
+        ctx.strokeStyle = 'rgba(2, 132, 199, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(currentX - crossLen, currentY);
+        ctx.lineTo(currentX + crossLen, currentY);
+        ctx.moveTo(currentX, currentY - crossLen);
+        ctx.lineTo(currentX, currentY + crossLen);
+        ctx.stroke();
+
+        // Core pulse dot
+        ctx.beginPath();
+        ctx.arc(currentX, currentY, 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#059669';
+        ctx.fill();
+
+        // Outer pulse ring
+        const pulseR = 10 + Math.sin(tick * 0.08) * 4;
+        ctx.beginPath();
+        ctx.arc(currentX, currentY, pulseR, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(5, 150, 105, ${0.45 + Math.sin(tick * 0.08) * 0.15})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        requestAnimationFrame(animate);
+      }
+
+      spawnRipple(currentX, currentY, true);
+      animate();
+    });
+  </script>
+
+</body>
+</html>
