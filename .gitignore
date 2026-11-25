@@ -1,0 +1,5 @@
+.env
+.env.local
+leads.json
+node_modules/
+.vercel/

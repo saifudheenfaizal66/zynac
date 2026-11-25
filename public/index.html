@@ -1292,8 +1292,9 @@
           })
         });
 
-        if (!res.ok) {
-          throw new Error(`Request failed with status ${res.status}`);
+        const resData = await res.json().catch(() => ({}));
+        if (!res.ok || resData.ok === false) {
+          throw new Error(resData.error || `Request failed with status ${res.status}`);
         }
 
         const safeContact = contactVal.replace(/[<>&"']/g, (ch) => ({
