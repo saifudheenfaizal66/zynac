@@ -5,6 +5,70 @@ const { exec } = require('child_process');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
+const LEADS_FILE = path.join(__dirname, 'leads.json');
+
+function isValidLeadContact(value) {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const digitsOnly = String(value || '').replace(/[\s\-().+]/g, '');
+  const phonePattern = /^\d{7,15}$/;
+  return emailPattern.test(value) || phonePattern.test(digitsOnly);
+}
+
+function handleEarlyAccessPost(req, res) {
+  let body = '';
+  req.on('data', (chunk) => {
+    body += chunk;
+    if (body.length > 16 * 1024) {
+      req.destroy();
+    }
+  });
+  req.on('end', () => {
+    let payload;
+    try {
+      payload = JSON.parse(body || '{}');
+    } catch {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Invalid JSON payload.' }));
+      return;
+    }
+
+    const contact = String(payload.contact || '').trim();
+    if (!isValidLeadContact(contact)) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Please provide a valid email or WhatsApp number.' }));
+      return;
+    }
+
+    const entry = {
+      contact,
+      source: String(payload.source || 'early-access-hero'),
+      submittedAt: payload.submittedAt || new Date().toISOString()
+    };
+
+    fs.readFile(LEADS_FILE, 'utf8', (readErr, existing) => {
+      let leads = [];
+      if (!readErr && existing) {
+        try {
+          const parsed = JSON.parse(existing);
+          if (Array.isArray(parsed)) leads = parsed;
+        } catch {
+          leads = [];
+        }
+      }
+      leads.push(entry);
+      fs.writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), (writeErr) => {
+        if (writeErr) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'Failed to save lead.' }));
+          return;
+        }
+        console.log(`[Early Access Lead] ${entry.contact} (${entry.submittedAt})`);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, entry }));
+      });
+    });
+  });
+}
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -20,7 +84,13 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-  let reqPath = decodeURI(req.url.split('?')[0]);
+  const reqUrl = req.url.split('?')[0];
+  if (req.method === 'POST' && reqUrl === '/api/early-access') {
+    handleEarlyAccessPost(req, res);
+    return;
+  }
+
+  let reqPath = decodeURI(reqUrl);
   if (reqPath === '/' || reqPath === '') {
     reqPath = '/index.html';
   }
